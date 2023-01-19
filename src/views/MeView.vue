@@ -5,16 +5,22 @@
     <input v-model="playerName"/>
 
     <button @click="onSaveClick">Save</button>
+    <button @click="onSave2Click">Save 2</button>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { getPlayers, getPlayer } from '@/http/rest';
+import { ref } from 'vue'
 
   const playerName = ref("");
 
   function onSaveClick() {
+    getPlayers();
+  }
 
+  function onSave2Click() {
+    getPlayer(5);
   }
 </script>
 

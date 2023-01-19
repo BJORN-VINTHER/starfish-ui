@@ -33,6 +33,12 @@ npm install
 npm run dev
 ```
 
+### Start Mock Server
+
+```sh
+npx msw init ./public --save
+```
+
 ### Type-Check, Compile and Minify for Production
 
 ```sh

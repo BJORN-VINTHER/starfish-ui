@@ -1,14 +1,23 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router";
+import { worker } from "../mocks/rest/browser";
+import "./assets/main.css";
+// import * as dotenv from 'dotenv'
+// dotenv.config()
+// console.log(process.env.VUE_APP_SOMEKEY)  // SOME_KEY_VALUE
 
-import App from './App.vue'
-import router from './router'
+// if (process.env.NODE_ENV === "development") {
+  worker.start({
+    onUnhandledRequest: 'bypass',
+  });
+// }
 
-import './assets/main.css'
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(createPinia())
-app.use(router)
+app.use(createPinia());
+app.use(router);
 
-app.mount('#app')
+app.mount("#app");
