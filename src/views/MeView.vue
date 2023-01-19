@@ -1,35 +1,46 @@
 <template>
-  <div class="me">
+  <div class="d-flex flex-column align-items-center">
     <h1>Player info</h1>
-    <p>Player name</p>
-    <input v-model="playerName"/>
+    <div class="d-flex align-items-center mt-5">
+      Player name:
+      <input class="ms-3" v-model="state.playerName" />
+    </div>
 
-    <button @click="onSaveClick">Save</button>
-    <button @click="onSave2Click">Save 2</button>
+    <button class="m-4" @click="onSaveClick">Save</button>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { getPlayers, getPlayer } from '@/http/rest';
-import { ref } from 'vue'
+import { getPlayer, createPlayer, updatePlayer } from "@/http/rest";
+import { onMounted, reactive } from "vue";
 
-  const playerName = ref("");
+const state = reactive({
+  playerId: 0,
+  playerName: "",
+});
 
-  function onSaveClick() {
-    getPlayers();
+onMounted(async () => {
+  const playerIdText = localStorage.getItem("playerId");
+  if (playerIdText) {
+    const id = parseInt(playerIdText);
+    const player = await getPlayer(id);
+    console.log(player);
+    state.playerId = player.id;
+    state.playerName = player.name;
   }
+});
 
-  function onSave2Click() {
-    getPlayer(5);
-  }
-</script>
-
-<style>
-@media (min-width: 1024px) {
-  .me {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+async function onSaveClick() {
+  const dto = {
+    id: state.playerId,
+    name: state.playerName,
+    color: "brown",
+  };
+  if (state.playerId === 0) {
+    const player = await createPlayer(dto);
+    localStorage.setItem("playerId", player.id.toString());
+  } else {
+    await updatePlayer(dto);
   }
 }
-</style>
+</script>
