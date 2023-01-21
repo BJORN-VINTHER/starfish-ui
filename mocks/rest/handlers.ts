@@ -1,36 +1,34 @@
 import type PlayerDto from "@/http/models/playerDto";
 import { rest } from "msw";
+import { players } from "./data"
 
 export const handlers = [
-  rest.get("/players/:playerId", (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json<PlayerDto>({
-        id: 5,
-        name: "Torben",
-        color: "#FFF",
-      })
-    );
+  rest.get("/players/:id", (req, res, ctx) => {
+    const { id } = req.params
+    const player = players.find(x => x.id === parseInt(id as string))
+    if (player) {
+      return res(
+        ctx.status(200),
+        ctx.json<PlayerDto>(player)
+      );
+    } else {
+      return res(
+        ctx.status(404),
+      );
+    }
   }),
   rest.get("/players", (req, res, ctx) => {
     return res(
       ctx.status(200),
-      ctx.json<PlayerDto[]>([
-        {
-          id: 3,
-          name: "Torben",
-          color: "#FFF",
-        },
-        {
-          id: 4,
-          name: "Dan",
-          color: "#222",
-        },
-      ])
+      ctx.json<PlayerDto[]>(players)
     );
   }),
   rest.put("/players/:id", async (req, res, ctx) => {
-    // const input = await req.json<PlayerDto>();
+    const input = await req.json<PlayerDto>();
+    const { id } = req.params
+    const player = players.find(x => x.id === parseInt(id as string))
+    player!.name = input.name;
+    player!.color = input.color;
     return res(
       ctx.status(200),
       // ctx.json(input)
@@ -38,13 +36,11 @@ export const handlers = [
   }),
   rest.post("/players", async (req, res, ctx) => {
     const input = await req.json<PlayerDto>();
+    input.id = 100;
+    players.push(input);
     return res(
       ctx.status(200),
-      ctx.json<PlayerDto>({
-        id: 5,
-        name: input.name,
-        color: input.color,
-      })
+      ctx.json<PlayerDto>(input)
     );
   }),
   
