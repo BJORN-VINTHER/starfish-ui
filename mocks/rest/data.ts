@@ -17,3 +17,14 @@ export const players: PlayerDto[] = [
         color: "#888",
       },
 ];
+
+export const playerColors: string[] = [
+  "#FF6699", // pink
+  "#CC6633", // brown
+  "#CC0000", // red
+  "#669900", // green
+  "#6699FF", // blue
+  "#FFCC00", // orange
+  "#CC33CC", // purple
+  "#33FFCC", // turquise
+]

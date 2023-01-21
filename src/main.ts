@@ -1,9 +1,10 @@
 import { createApp } from "vue";
-import { createPinia } from "pinia";
+import { createPinia, storeToRefs } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import { worker } from "../mocks/rest/browser";
 import "./assets/main.css";
+import { useGlobalStore } from "./stores/global";
 // import * as dotenv from 'dotenv'
 // dotenv.config()
 // console.log(process.env.VUE_APP_SOMEKEY)  // SOME_KEY_VALUE
@@ -17,7 +18,12 @@ import "./assets/main.css";
 
 const app = createApp(App);
 
+// setup store
 app.use(createPinia());
-app.use(router);
+const store = useGlobalStore();
+app.use(async () => {
+  await store.init();
+});
 
+app.use(router);
 app.mount("#app");
