@@ -10,6 +10,7 @@ export const useGlobalStore = defineStore("global", () => {
   async function init() {
     playerColors.value = await getAllPlayerColors();
     const playerIdText = localStorage.getItem("playerId");
+    console.log("Read ID: " + playerIdText);
     if (playerIdText) {
       me.value = await getPlayer(parseInt(playerIdText));
     }
@@ -17,6 +18,7 @@ export const useGlobalStore = defineStore("global", () => {
 
   async function updateMe(player: PlayerDto) {
     localStorage.setItem("playerId", player.id.toString());
+    console.log("Write ID " + player.id);
     me.value = player;
   }
 

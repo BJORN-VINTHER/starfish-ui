@@ -10,8 +10,9 @@ const http = axios.create({
     }
 })
 
-export async function getPlayers(): Promise<PlayerDto[]> {
+export async function getAllPlayers(): Promise<PlayerDto[]> {
     const response = await http.get<PlayerDto[]>("/players");
+    console.log(response.data);
     return response.data;
 }
 
