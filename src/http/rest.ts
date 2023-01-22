@@ -1,6 +1,6 @@
 
 import axios from "axios"
-import type PlayerDto from "./models/playerDto";
+import type PlayerDto from "./models/restDtos";
 
 const http = axios.create({
     baseURL: "http://localhost:5081/",

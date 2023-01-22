@@ -1,4 +1,4 @@
-import type PlayerDto from "@/http/models/playerDto";
+import type PlayerDto from "@/http/models/restDtos";
 import { rest } from "msw";
 import { playerColors, players } from "./data"
 

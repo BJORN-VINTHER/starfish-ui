@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type PlayerDto from "@/http/models/playerDto";
+import type PlayerDto from "@/http/models/restDtos";
 import { getAllPlayerColors, getPlayer } from "@/http/rest";
 
 export const useGlobalStore = defineStore("global", () => {

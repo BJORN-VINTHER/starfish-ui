@@ -1,25 +1,49 @@
 <script setup lang="ts">
 import TheWelcome from "../components/TheWelcome.vue";
 import { getAllPlayers } from "@/http/rest";
+import ChatHub from "@/http/chatHub";
+
+let chatHub: ChatHub = new ChatHub("ws://localhost:5081/chat");
+
+function connectToSocket() {
+  chatHub.connect();
+}
+
+function sendMessage() {
+  chatHub!.sendMessage({
+    user: "PAlle pirat",
+    message: "Ohøj tabere!",
+  });
+}
 
 // console.log(process.env.VUE_APP_SOMEKEY)
 </script>
 
 <template>
-  <main class="px-3">
-    <h1>Cover your page.</h1>
-    <p class="lead">
-      Cover is a one-page template for building simple and beautiful home pages.
-      Download, edit the text, and add your own fullscreen background photo to
-      make it your own.
-    </p>
-    <p class="lead">
-      <a
-        @click="() => getAllPlayers()"
-        href="#"
-        class="btn btn-lg btn-light fw-bold border-white bg-white"
-        >Learn more</a
-      >
-    </p>
+  <main class="px-3 d-flex flex-column align-items-center">
+    <h1>Test</h1>
+    <button
+      type="button"
+      class="btn btn-primary btn-lg m-4"
+      @click="connectToSocket"
+    >
+      Connect socket
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary btn-lg m-4"
+      @click="sendMessage"
+    >
+      Send message
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-primary btn-lg m-4"
+      @click="getAllPlayers"
+    >
+      Get all players
+    </button>
   </main>
 </template>

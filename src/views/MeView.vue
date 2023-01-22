@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-center me">
+  <div class="d-flex flex-column align-items-center">
     <!-- <h1>Player info</h1> -->
 
     <div class="form-group d-flex flex-column align-items-start mt-4">
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import type PlayerDto from "@/http/models/playerDto";
+import type { PlayerDto } from "@/http/models/restDtos";
 import {
   createPlayer,
   updatePlayer,
@@ -88,9 +88,7 @@ async function onSaveClick() {
 </script>
 
 <style>
-.me {
-  /* font-size: 20px; */
-}
+
 
 .color-box {
   width: 50px;

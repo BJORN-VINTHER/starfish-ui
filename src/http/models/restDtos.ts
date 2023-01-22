@@ -1,4 +1,4 @@
-export default interface PlayerDto {
+export interface PlayerDto {
     id: number,
     name: string,
     color: string
